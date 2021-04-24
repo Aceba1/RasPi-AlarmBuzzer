@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Raspi Buzzer | Configuration</title>
+  <link rel="shortcut icon" href="#" />
+  <!-- ##STYLE## -->
+</head>
+<body>
+  <div id="top-bar">
+    <div class="vert">
+      <label class="info" for="default-duration">Buzzer length</label>
+      <div style="margin:auto;">
+        <input type="number" id="default-duration" min="0.1" step="any" value="##DEFAULTLENGTH##"
+          oninput="updateLength(this)" onchange="updateLength(this, true)"> s
+      </div>
+    </div>
+    <label id="nav-time">
+      <span id="top-bar-time">____ 12:00</span><span id="sub">AM</span> <span id="error">⚠</span>
+    </label>
+    <div>
+      <button id="add-button" onclick="addClicked()">New Alarm</button>
+      <button id="test-button" onclick="testAlarm()">Test</button>
+    </div>
+  </div>
+  <div id="list"></div>
+  <!-- ##SCRIPT## -->
+</body>
+</html>

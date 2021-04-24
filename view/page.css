@@ -1,0 +1,271 @@
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+.info,
+.no-select {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+body {
+  background: black;
+  font-family: Arial, Helvetica, sans-serif;
+  color: white;
+}
+
+div {
+  background: #fff0;
+  box-shadow: inset 0px 0px 0px 1px #fff0;
+}
+
+#top-bar {
+  display: flex;
+  justify-content: space-between;
+  margin: 4px 8px 16px;
+}
+
+#top-bar div {
+  flex-shrink: 0;
+}
+
+input {
+  background: black;
+  color: white;
+  font-size: 1rem;
+  border: none;
+  outline: none;
+}
+input,
+.highlight,
+.schedule-item {
+  transition: box-shadow 0.3s;
+}
+
+input:hover {
+  transition: box-shadow 0.1s;
+  box-shadow: 0px 2px #444;
+}
+
+input:focus,
+.highlight:hover {
+  transition: box-shadow 0.1s;
+  box-shadow: 0px 2px white;
+}
+
+button {
+  cursor: pointer;
+  background: #333;
+  color: white;
+  border: none;
+  border-radius: 2px;
+  padding: 4px 12px;
+}
+
+button:hover {
+  background: #444;
+}
+button:active {
+  background: #222;
+}
+
+#top-bar button {
+  font-size: 16px;
+  padding: 8px 20px;
+}
+
+#nav-time {
+  pointer-events: none;
+  text-align: center;
+  right: 0%;
+  left: 0%;
+  top: 8px;
+  font-size: 30px;
+  position: absolute;
+}
+
+@media screen and (max-width: 700px) {
+  #top-bar {
+    margin-top: 48px;
+  }
+  #error::after {
+    display: none;
+  }
+}
+
+#sub {
+  font-size: 20px;
+  padding: 4px;
+  position: relative;
+  top: -8px;
+}
+
+#error {
+  display: none;
+  color: red;
+}
+
+#error::after {
+  position: absolute;
+  top: 40px;
+  left: 0%;
+  right: 0%;
+  font-size: 16px;
+  content: "The server's time is unset!";
+}
+
+#list {
+  max-width: max(70%, 800px);
+  margin: 0px auto;
+  display: flex;
+  flex-direction: column;
+}
+
+#default-duration {
+  text-align: right;
+  width: 50px;
+}
+
+.info {
+  align-self: center;
+  font-style: italic;
+  color: #888;
+}
+
+.vert {
+  display: flex;
+  flex-direction: column;
+}
+
+.schedule-item {
+  display: flex;
+  flex-direction: row;
+  margin: 8px;
+}
+
+.schedule-item:hover,
+.schedule-item:focus-within {
+  transition: box-shadow 0.2s;
+  box-shadow: -2px 0px white;
+}
+
+.left {
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+}
+
+.time {
+  font-size: 30px;
+  margin: 0px 4px 0px 16px;
+  height: min-content;
+  text-align: right;
+}
+
+.schedule-item .time {
+  width: 80px;
+}
+
+.sign {
+  cursor: pointer;
+  height: min-content;
+  margin: 0px 12px 0px 0px;
+  font-size: 16px;
+}
+
+.center {
+  flex: 1;
+}
+
+.desc {
+  margin: 0px 0px 8px 8px;
+}
+
+.days {
+  margin-left: auto;
+}
+
+.right {
+  width: 20px;
+  position: relative;
+}
+
+.stretch {
+  display: block;
+  flex: 1 0 0;
+}
+
+.day-box {
+  cursor: pointer;
+  display: inline-block;
+  margin: 2px;
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+  background-color: #333;
+}
+
+.day-box:hover {
+  background-color: #444;
+}
+
+.day-box.active {
+  background-color: #08f;
+}
+
+.day-box:focus {
+  border-bottom: 1px solid black;
+}
+
+.day-box::after {
+  content: "";
+}
+
+.x-button {
+  top: 0%;
+  right: 0%;
+  cursor: pointer;
+  height: 16px;
+  width: 16px;
+  background-color: #000;
+  opacity: 0.3;
+  border-radius: 2px;
+  position: absolute;
+}
+
+.x-button:hover {
+  opacity: 1;
+}
+
+.x-button:active {
+  background-color: #f00;
+}
+
+.x-button:before,
+.x-button:after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 7px;
+  width: 2px;
+  height: 12px;
+  background: white;
+}
+
+.x-button:before {
+  transform: rotate(45deg);
+}
+
+.x-button:after {
+  transform: rotate(-45deg);
+}

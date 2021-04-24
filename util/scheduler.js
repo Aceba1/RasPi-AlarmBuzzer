@@ -1,5 +1,9 @@
 const fs = require('fs');
 
+const _path = process.env.JSONPATH || './schedule.json';
+const path = fs.existsSync(_path) ? _path : require('path').join(__dirname, '../', _path);
+
+
 /**
  * @typedef {{
  *  days: number[],
@@ -7,8 +11,6 @@ const fs = require('fs');
  *  length: number,
  * }} Alarm
  */
-
-const path = process.env.JSONPATH || './schedule.json';
 
 /**
  * @type {{

@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 const fs = require('fs');
 
 const router = express.Router();
@@ -6,9 +7,9 @@ const router = express.Router();
 const setTime = require('../util/setTime');
 const scheduler = require('./../util/scheduler');
 
-const page = fs.readFileSync('./view/page.html').toString()
-  .replace(/<!--\s*?##STYLE##\s*?-->/, `<style>${fs.readFileSync('./view/page.css').toString()}</style>`)
-  .replace(/<!--\s*?##SCRIPT##\s*?-->/, `<script>${fs.readFileSync('./view/page.js').toString()}</script>`);
+const page = fs.readFileSync(path.join(__dirname, '../view/page.html')).toString()
+  .replace(/<!--\s*?##STYLE##\s*?-->/, `<style>${fs.readFileSync(path.join(__dirname, '../view/page.css')).toString()}</style>`)
+  .replace(/<!--\s*?##SCRIPT##\s*?-->/, `<script>${fs.readFileSync(path.join(__dirname, '../view/page.js')).toString()}</script>`);
 
 const preparePage = () => 
   page.replace(/\[\s*?\/\*##SCHEDULE##\*\/\s*?\]/, JSON.stringify(scheduler.getAlarms()) || [])

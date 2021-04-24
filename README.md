@@ -26,14 +26,15 @@ The configuration page is hosted on [raspberrypi.local:5000](raspberrypi.local:5
   - Default password is `raspberry`
 
 #### Connect to Internet
-
-**Note:** The configuration page may be public to any client on the same network! 
-
 - Connect Raspberry Pi to Wi-Fi
   - Within SSH, run **`sudo raspi-config`**
   - **System Options**, **Network Options**, **Wireless LAN**
   - **SSID** is the router's name, as it would appear on other devices
   - Provide **Password** if applicable
+
+**Note:** The configuration page may be public to any client on the same network! 
+
+To forget a network after **Install** is complete, edit `/etc/wpa_supplicant/wpa_supplicant.conf` and remove the `network={...}` entries
 
 ### Install
 Through SSH, clone or transfer the repository's files into the home directory.

@@ -1,4 +1,4 @@
-const pyDriver = process.cwd() +  '/python/gpio_driver.py';
+const pyDriver = require('path').join(__dirname, '../python/gpio_driver.py');
 const usePyDriver = process.env.USE_PIFACE !== undefined && process.env.USE_PIFACE.toLowerCase() === 'true';
 
 const spawn = require('child_process').spawn;

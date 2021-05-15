@@ -15,9 +15,9 @@ The configuration page is hosted on [raspberrypi.local:5000](raspberrypi.local:5
 
 ### Initial
 - Flash the MicroSD card with [Raspberry Pi Imager](https://www.raspberrypi.org/software/) (or preferred method)
-- Make a new file in the Boot partition named `SSH` with no file ending
-- Insert MicroSD
-- Connect power to Pi
+- Make a new file in the Boot partition named `SSH` (with no file ending)
+- Insert MicroSD to Raspberry Pi
+- Connect power to Raspberry Pi
 
 ### SSH
 - Connect Ethernet cable to Pi and Desktop
@@ -26,11 +26,13 @@ The configuration page is hosted on [raspberrypi.local:5000](raspberrypi.local:5
   - Default password is `raspberry`
 
 #### Connect to Internet
-- Connect Raspberry Pi to Wi-Fi
-  - Within SSH, run **`sudo raspi-config`**
-  - **System Options**, **Network Options**, **Wireless LAN**
+- Within SSH, run **`sudo raspi-config`**
+- **System Options**, **Network Options**, **Wireless LAN**
   - **SSID** is the router's name, as it would appear on other devices
   - Provide **Password** if applicable
+- **Localization Options**, **Timezone**
+  - Select your geographic area
+  - Select your city / region
 
 **Note:** The configuration page may be public to any client on the same network! 
 
@@ -38,6 +40,8 @@ To forget a network after **Install** is complete, edit `/etc/wpa_supplicant/wpa
 
 ### Install
 Through SSH, clone or transfer the repository's files into the home directory.
+
+These commands prepare the environment to run the project:
 <!-- TODO: Add direct support for GPIO -->
 - **`sudo apt update`**
 - **`sudo apt upgrade -y`**
@@ -48,9 +52,10 @@ Through SSH, clone or transfer the repository's files into the home directory.
 - **`sudo pip3 install pifacecommon pifacedigitalio `**
   - [`pifacecommon`](https://github.com/piface/pifacecommon): Necessary for `pifacedigitalio`
   - [`pifacedigitalio`](https://github.com/piface/pifacedigitalio): Necessary for controlling the shield relays
-- `echo "dtparam=spi=on" | sudo tee -a /boot/config.txt`
+- `echo "`**`dtparam=spi=on`**`" | sudo tee -a /boot/config.txt`
   - Enable the SPI Module, used to communicate with the PiFace board
+  - (It is possible to add this line manually from an SD card reader. Handle with care!)
 
 ### Start on Boot
-- Use [crontab](https://www.raspberrypi.org/documentation/linux/usage/cron.md)
+- Use [`crontab -e`](https://www.raspberrypi.org/documentation/linux/usage/cron.md)
   - More specifically, add an entry using `@reboot` for `node /home/pi/.../index.js &` or a custom script

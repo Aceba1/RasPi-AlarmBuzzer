@@ -6,6 +6,8 @@ const spawn = require('child_process').spawn;
 const scheduler = require('./scheduler');
 
 let scheduledTimeouts = [];
+let midnightTimeout = null;
+let dailyInterval = null;
 
 function hmToMinutes(hm) {
   return Math.floor(hm / 100) * 60 + (hm % 100);
@@ -22,10 +24,24 @@ function filterForDay() {
 
 function setMidnightTimeout() {
   let now = new Date();
-  now = -now.getTime() + now.setHours(24, 0, 0, 15);
-  setTimeout(() => {
-    setNextAlarms(true);
-  }, now);
+  let next = new Date(now);
+  next.setDate(now.getDate() + 1);
+  next.setHours(0, 0, 0, 0);
+  let midnightDelay = next.getTime() - now.getTime();
+  console.log(`Midnight in ${midnightDelay}ms`);
+
+  if (dailyInterval !== null) {
+    clearInterval(dailyInterval);
+    dailyInterval = null;
+  }
+  
+  if (midnightTimeout !== null) 
+    clearTimeout(midnightTimeout);
+  
+  midnightTimeout = setTimeout(() => {
+    dailyInterval = setInterval(() => setNextAlarms(true), 86400000); // Interval for every day
+    setNextAlarms(true, next);
+  }, midnightDelay);
 }
 
 function clearBuzzers() {
@@ -39,9 +55,7 @@ function scheduleBuzzer(length, msecFromNow) {
   scheduledTimeouts.push(setTimeout(buzz, msecFromNow, length));
 }
 
-function setNextAlarms(inclusive = false) {
-  const offset = inclusive ? 60000 : 0;
-  const now = new Date();
+function setNextAlarms(all = false, now = new Date()) {
   console.log(`Setting alarms at ${now.toLocaleTimeString()}, ${now.toDateString()}`);
   const currentTime = now.getTime() - now.setHours(0, 0, 0, 0);
 
@@ -51,7 +65,7 @@ function setNextAlarms(inclusive = false) {
 
   filterForDay().forEach(alarm => {
     const time = hmToMinutes(alarm.time) * 60000;
-    if (time + offset > currentTime) {
+    if (all || time > currentTime) {
       if (lastBuzzer === alarm.time) {
         console.log(`Duplicate entry for ${leadTime(lastBuzzer)}`);
       } else {
@@ -100,7 +114,6 @@ function buzz(msec = 1000) {
 
 function initialize() {
   setMidnightTimeout();
-  filterForDay();
   setNextAlarms();
 }
 
